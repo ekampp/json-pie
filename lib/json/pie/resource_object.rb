@@ -17,9 +17,10 @@ module JSON
       end
 
       def parse
-        klass = type.to_s.classify.constantize
-        @instance = id ? klass.find(id) : klass.new
+        @instance = extract_instance!
         instance.attributes = attributes
+      rescue ActiveModel::UnknownAttributeError
+        raise JSON::Pie::InvalidAttribute
       end
 
       private
@@ -30,6 +31,13 @@ module JSON
           @type = data.fetch :type
         rescue KeyError
           raise JSON::Pie::MissingType
+        end
+
+        def extract_instance!
+          klass = type.to_s.classify.constantize
+          @instance = id ? klass.find(id) : klass.new
+        rescue NameError
+          raise JSON::Pie::InvalidType
         end
     end
   end

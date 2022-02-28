@@ -7,6 +7,8 @@ module JSON
   module Pie
     Error = Class.new StandardError
     MissingType = Class.new Error
+    InvalidType = Class.new Error
+    InvalidAttribute = Class.new Error
 
     module_function
 
