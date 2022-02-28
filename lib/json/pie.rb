@@ -6,6 +6,7 @@ require_relative "pie/top_level"
 module JSON
   module Pie
     Error = Class.new StandardError
+    MissingType = Class.new Error
 
     module_function
 

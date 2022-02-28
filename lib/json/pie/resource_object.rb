@@ -10,18 +10,27 @@ module JSON
       end
 
       def initialize(data)
-        @id = data.fetch(:id, nil)
-        @type = data.fetch(:type)
+        @id = data.fetch :id, nil
+        extract_type! data
+        @attributes = data.fetch :attributes, {}
+        @relationships = data.fetch :relationships, {}
       end
 
       def parse
         klass = type.to_s.classify.constantize
         @instance = id ? klass.find(id) : klass.new
+        instance.attributes = attributes
       end
 
       private
 
-        attr_reader :id, :type
+        attr_reader :id, :type, :attributes, :relationships
+
+        def extract_type!(data)
+          @type = data.fetch :type
+        rescue KeyError
+          raise JSON::Pie::MissingType
+        end
     end
   end
 end
