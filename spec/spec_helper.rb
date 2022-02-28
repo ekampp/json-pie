@@ -2,7 +2,7 @@
 
 ENV["RAILS_ENV"] ||= "test"
 
-require "active_record"
+require "rails/all"
 require "rspec/its"
 require "json/pie"
 

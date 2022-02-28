@@ -10,6 +10,7 @@ module JSON
       end
 
       def initialize(params)
+        params = params.permit!.to_h.deep_symbolize_keys if params.respond_to?(:permit!)
         @params = params
       end
 
