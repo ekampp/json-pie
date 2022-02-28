@@ -2,6 +2,9 @@
 
 Parse JSON:API data structures into Rails ActiveRecord structures.
 
+![Tests](https://github.com/ekampp/json-pie/actions/workflows/tests.yml/badge.svg)
+![Linting](https://github.com/ekampp/json-pie/actions/workflows/linting.yml/badge.svg)
+
 ## Installation
 
 ```
