@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "./resource_object"
 
 module JSON
@@ -18,24 +20,24 @@ module JSON
         @options = options
         data = params.fetch(:data)
         self.instance = case data
-        when Array then parse_as_array
-        else parse_as_object
-        end
+                        when Array then parse_as_array
+                        else parse_as_object
+                        end
       end
 
       private
 
-        attr_reader :params, :options
+      attr_reader :params, :options
 
-        def parse_as_array
-          params.fetch(:data).collect do |resurce_object|
-            parse_as_object resurce_object
-          end
+      def parse_as_array
+        params.fetch(:data).collect do |resurce_object|
+          parse_as_object resurce_object
         end
+      end
 
-        def parse_as_object(resurce_object = params.fetch(:data))
-          JSON::Pie::ResourceObject.parse(resurce_object, **options)
-        end
+      def parse_as_object(resurce_object = params.fetch(:data))
+        JSON::Pie::ResourceObject.parse(resurce_object, **options)
+      end
     end
   end
 end

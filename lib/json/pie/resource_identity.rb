@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JSON
   module Pie
     class ResourceIdentity
@@ -20,11 +22,11 @@ module JSON
 
       private
 
-        attr_reader :options
+      attr_reader :options
 
-        def determine_type(type)
-          options.dig(:type_map, type).presence || type
-        end
+      def determine_type(type)
+        options.dig(:type_map, type).presence || type
+      end
     end
   end
 end

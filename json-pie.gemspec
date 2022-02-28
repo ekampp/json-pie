@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "rails", "<= 7.1"
+  spec.metadata["rubygems_mfa_required"] = "true"
 end

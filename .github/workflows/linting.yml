@@ -1,4 +1,4 @@
-name: Ruby
+name: Linting
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  rubocop:
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }}
     strategy:
@@ -26,5 +26,5 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
-    - name: Run the default task
-      run: bundle exec rake
+    - name: Run Rubocop
+      run: bundle exec rubocop -c .rubocop.yml

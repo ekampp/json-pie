@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_support/all"
 require_relative "./resource_object"
 
@@ -24,7 +26,7 @@ module JSON
 
       private
 
-        attr_reader :relationships
+      attr_reader :relationships
     end
   end
 end
