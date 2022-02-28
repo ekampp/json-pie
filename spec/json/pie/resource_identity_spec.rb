@@ -1,6 +1,7 @@
 RSpec.describe JSON::Pie::ResourceIdentity do
   describe '.find_or_initialize' do
-    subject(:find_or_initialize) { described_class.find_or_initialize(type: type, id: id) }
+    subject(:find_or_initialize) { described_class.find_or_initialize(type: type, id: id, **options) }
+    let(:options) { {} }
     let(:type) { :user }
     let(:id) { user.id }
     let(:user) { User.create! name: "User 1" }
@@ -19,9 +20,10 @@ RSpec.describe JSON::Pie::ResourceIdentity do
       it { expect { find_or_initialize }.to raise_error JSON::Pie::InvalidType }
     end
 
-    context 'with missing type' do
-      subject(:find_or_initialize) { described_class.find_or_initialize(id: id) }
-      it { expect { find_or_initialize }.to raise_error JSON::Pie::MissingType }
+    context 'with mapped type' do
+      before { options[:type_map] = { author: :user } }
+      let(:type) { :author }
+      it { is_expected.to eql user }
     end
   end
 end

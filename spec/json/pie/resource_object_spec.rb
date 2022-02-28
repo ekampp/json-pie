@@ -1,8 +1,8 @@
 RSpec.describe JSON::Pie::ResourceObject do
-  subject(:instance) { described_class.parse data_object }
+  subject(:instance) { described_class.parse(data_object, **options) }
 
   let(:user) { User.create! name: "User 1" }
-
+  let(:options) { {} }
   let(:data_object) do
     {
       type: :user,
@@ -16,6 +16,15 @@ RSpec.describe JSON::Pie::ResourceObject do
   it { is_expected.to eql user }
   it { expect(instance.name).to eql "New name" }
   it { expect { instance }.not_to change(user.reload, :name) }
+
+  context 'with type_map option' do
+    before do
+      options[:type_map] = { author: :user }
+      data_object[:type] = :author
+    end
+
+    it { is_expected.to eql user }
+  end
 
   context 'with no attributes' do
     before { data_object.delete :attributes }

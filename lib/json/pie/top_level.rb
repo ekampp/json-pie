@@ -5,8 +5,8 @@ module JSON
     class TopLevel
       attr_accessor :instance
 
-      def self.parse(params)
-        new(params).tap { |i| i.parse }.instance
+      def self.parse(params, **options)
+        new(params).tap { |i| i.parse(**options) }.instance
       end
 
       def initialize(params)
@@ -14,7 +14,8 @@ module JSON
         @params = params
       end
 
-      def parse
+      def parse(**options)
+        @options = options
         data = params.fetch(:data)
         self.instance = case data
         when Array then parse_as_array
@@ -24,7 +25,7 @@ module JSON
 
       private
 
-        attr_reader :params
+        attr_reader :params, :options
 
         def parse_as_array
           params.fetch(:data).collect do |resurce_object|
@@ -33,7 +34,7 @@ module JSON
         end
 
         def parse_as_object(resurce_object = params.fetch(:data))
-          JSON::Pie::ResourceObject.parse(resurce_object)
+          JSON::Pie::ResourceObject.parse(resurce_object, **options)
         end
     end
   end

@@ -1,6 +1,24 @@
 RSpec.describe JSON::Pie::TopLevel do
   describe '.parse' do
-    subject(:resource) { described_class.parse ActionController::Parameters.new params }
+    subject(:resource) { described_class.parse(ActionController::Parameters.new(params), **options) }
+
+    let(:options) { {} }
+
+    context 'with overridden resource type' do
+      before { options[:type_map] = { author: :user } }
+
+      let(:params) do
+        {
+          data: {
+            type: :author,
+          }
+        }
+      end
+
+      it 'assigns it as a user' do
+        expect(resource).to be_a User
+      end
+    end
 
     context 'with single resource' do
       let(:params) do

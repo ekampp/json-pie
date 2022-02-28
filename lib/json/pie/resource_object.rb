@@ -7,12 +7,13 @@ module JSON
     class ResourceObject
       attr_reader :instance
 
-      def self.parse(data)
-        new(data).tap { |i| i.parse }.instance
+      def self.parse(data, **options)
+        new(data, **options).tap { |i| i.parse }.instance
       end
 
-      def initialize(data)
+      def initialize(data, **options)
         @data = data
+        @options = options
       end
 
       def parse
@@ -24,7 +25,7 @@ module JSON
 
       private
 
-        attr_reader :data
+        attr_reader :data, :options
 
         def parse_as_object
           extract_instance!
@@ -33,11 +34,11 @@ module JSON
         end
 
         def parse_as_array
-          @instance = data.collect { |d| ResourceObject.parse(d) }
+          @instance = data.collect { |d| ResourceObject.parse(d, **options) }
         end
 
         def extract_instance!
-          @instance ||= JSON::Pie::ResourceIdentity.find_or_initialize(**data.slice(:id, :type))
+          @instance ||= JSON::Pie::ResourceIdentity.find_or_initialize(**data.slice(:id, :type), **options)
         end
 
         def assign_attributes!
