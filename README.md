@@ -54,3 +54,15 @@ Then send this JSON structure to your application will create a new article with
   }
 }
 ```
+
+### Decoupling from your models
+
+It's fairly easy to decouple the publis JSON:API that you parse from the actual data structure beneath by using the options.
+
+```ruby
+JSON::Pie.parse(params, **options)
+```
+
+| option | description |
+| ------ | ----------- |
+| `type_map` | A hash that maps JSON:API types to the actual models in your system. E.g. `{ author: :user }` |
