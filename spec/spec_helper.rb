@@ -6,7 +6,13 @@ require "rails/all"
 require "rspec/its"
 require "json/pie"
 
+# Connect in-memory sqlite database
+require_relative "./support/database"
+Database.connect
+
+# Require models
 require_relative "./support/user"
+require_relative "./support/article"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

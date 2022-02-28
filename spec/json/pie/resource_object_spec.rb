@@ -27,4 +27,26 @@ RSpec.describe JSON::Pie::ResourceObject do
     before { data_object[:attributes] = { invalid_column: "value" } }
     it { expect { instance }.to raise_error JSON::Pie::InvalidAttribute }
   end
+
+  context 'with array of data objects' do
+    let(:data_object) do
+      [
+        {
+          type: :user,
+        },
+        {
+          type: :user,
+          id: user.id,
+        },
+      ]
+    end
+
+    it 'includes the existing user' do
+      expect(instance).to include(user)
+    end
+
+    it 'includes a new user' do
+      expect(instance.collect(&:persisted?)).to match_array [true, false]
+    end
+  end
 end

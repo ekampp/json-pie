@@ -13,7 +13,7 @@ module JSON
         klass = type.to_s.classify.constantize
         @instance = id ? klass.find(id) : klass.new
       rescue NameError
-        raise JSON::Pie::InvalidType
+        raise JSON::Pie::InvalidType, "#{type}(#{id})"
       end
     end
   end
