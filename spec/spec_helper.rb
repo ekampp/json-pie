@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
+ENV["RAILS_ENV"] ||= "test"
+
+require "active_record"
 require "rspec/its"
 require "json/pie"
+
+require_relative "./support/user"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

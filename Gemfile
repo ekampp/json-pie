@@ -9,4 +9,5 @@ group :develoment, :test do
   gem "rspec-its"
   gem "rubocop", "~> 1.21"
   gem "guard-rspec"
+  gem "sqlite3"
 end
