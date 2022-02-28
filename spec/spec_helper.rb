@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "rspec/its"
 require "json/pie"
 
 RSpec.configure do |config|
