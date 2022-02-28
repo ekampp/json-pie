@@ -22,6 +22,25 @@ RSpec.describe JSON::Pie::TopLevel do
       end
     end
 
+    context "with overridden attributes" do
+      before { options[:attributes_map] = { user: { callsign: :name } } }
+
+      let(:params) do
+        {
+          data: {
+            type: :user,
+            attributes: {
+              callsign: "Bob"
+            }
+          }
+        }
+      end
+
+      it "assigns the right attributes" do
+        expect(resource.name).to eql "Bob"
+      end
+    end
+
     context "with single resource" do
       let(:params) do
         {

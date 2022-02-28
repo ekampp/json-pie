@@ -41,7 +41,7 @@ module JSON
       end
 
       def assign_attributes!
-        instance.attributes = data.fetch :attributes, {}
+        instance.attributes = attributes_tuple.to_h
       rescue ActiveModel::UnknownAttributeError
         raise JSON::Pie::InvalidAttribute
       end
@@ -50,6 +50,13 @@ module JSON
         JSON::Pie::ResourceRelationships.assign \
           instance: instance,
           relationships: data.fetch(:relationships, {})
+      end
+
+      def attributes_tuple
+        data.fetch(:attributes, {}).collect do |key, value|
+          key = options.dig(:attributes_map, data.fetch(:type), key).presence || key
+          [key, value]
+        end
       end
     end
   end
