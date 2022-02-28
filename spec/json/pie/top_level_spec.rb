@@ -12,9 +12,15 @@ RSpec.describe JSON::Pie::TopLevel do
                 data: [
                   {
                     type: :article,
+                    attributes: {
+                      name: "A1",
+                    }
                   },
                   {
                     type: :article,
+                    attributes: {
+                      name: "A2",
+                    }
                   },
                 ],
               },
@@ -28,6 +34,10 @@ RSpec.describe JSON::Pie::TopLevel do
       it 'assigns relationships' do
         expect(resource.articles.length).to be 2
       end
+
+      it 'assigns relationship attributes' do
+        expect(resource.articles.map(&:name)).to match_array %w[A1 A2]
+      end
     end
 
     context 'with list of resources' do
@@ -36,9 +46,15 @@ RSpec.describe JSON::Pie::TopLevel do
           data: [
             {
               type: :user,
+              attributes: {
+                name: "U1"
+              }
             },
             {
               type: :user,
+              attributes: {
+                name: "U2"
+              }
             },
           ],
         }
@@ -46,6 +62,10 @@ RSpec.describe JSON::Pie::TopLevel do
 
       it 'returns a list of resources' do
         expect(resource.map(&:class)).to match_array [User, User]
+      end
+
+      it 'assigns attributes to the resources' do
+        expect(resource.map(&:name)).to match_array %w[U1 U2]
       end
     end
   end
