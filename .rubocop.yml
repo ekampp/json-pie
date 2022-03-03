@@ -24,3 +24,4 @@ Metrics/BlockLength:
   Exclude:
     - Guardfile
     - "**/*_spec.rb"
+    - json-pie.gemspec
