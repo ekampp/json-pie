@@ -14,9 +14,8 @@ module JSON
       def initialize(type:, id: nil, **options)
         @options = options
         klass = determine_type(type).to_s.classify.constantize
-        @instance = id ? klass.find(id) : klass.new
+        @instance = klass.find_or_initialize_by klass.primary_key => id
       rescue NameError
-        pp options
         raise JSON::Pie::InvalidType, "#{type}(#{id})"
       end
 
