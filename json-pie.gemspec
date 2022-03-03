@@ -8,8 +8,12 @@ Gem::Specification.new do |spec|
   spec.authors = ["Emil Kampp"]
   spec.email = ["emil@kampp.me"]
 
-  spec.summary = "JSON:API rails plugin"
-  spec.description = "Allow a Rails API to use the JSON:API interface"
+  spec.summary = "Easily parse JSON:API structures into ActiveRecord resources"
+  spec.description = <<~STR
+    Easily parse JSON:API data structures into ActiveRecord resources.
+
+    This will parse deeply nested relationships as well as attributes.
+  STR
   spec.homepage = "https://github.com/ekampp/json-pie"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
