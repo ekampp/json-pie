@@ -62,4 +62,22 @@ RSpec.describe JSON::Pie::ResourceObject do
       expect(instance.collect(&:persisted?)).to match_array [true, false]
     end
   end
+
+  context 'with null relationship' do
+    let(:article) { Article.create! name: "Black hole sun", user: user }
+
+    let(:data_object) do
+      {
+        type: :article,
+        id: article.id,
+        relationships: {
+          user: nil,
+        }
+      }
+    end
+
+    it 'handles the null relationship' do
+      expect(instance.user).to be_nil
+    end
+  end
 end

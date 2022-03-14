@@ -24,6 +24,8 @@ module JSON
       end
 
       def instance
+        return nil if data.blank?
+
         @instance ||= JSON::Pie::ResourceIdentity.find_or_initialize(**data.slice(:id, :type), **options)
       end
 
@@ -41,7 +43,7 @@ module JSON
       end
 
       def assign_attributes!
-        instance.attributes = attributes_tuple.to_h
+        instance&.attributes = attributes_tuple.to_h
       rescue ActiveModel::UnknownAttributeError
         raise JSON::Pie::InvalidAttribute
       end

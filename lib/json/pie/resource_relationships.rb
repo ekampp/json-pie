@@ -19,7 +19,7 @@ module JSON
 
       def assign
         relationships.each do |rel, data|
-          relationship_instance = ResourceObject.parse data.fetch(:data)
+          relationship_instance = ResourceObject.parse (data || {}).fetch(:data, {})
           instance.public_send "#{rel}=", relationship_instance
         end
       end
