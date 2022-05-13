@@ -9,6 +9,7 @@ module JSON
     MissingType = Class.new Error
     InvalidType = Class.new Error
     InvalidAttribute = Class.new Error
+    MalformattedDataObject = Class.new Error
 
     module_function
 

@@ -22,6 +22,16 @@ RSpec.describe JSON::Pie::TopLevel do
       end
     end
 
+    context 'with non-json data object' do
+      let(:params) do
+        {
+          data: "hello"
+        }
+      end
+
+      it { expect { resource }.to raise_error JSON::Pie::MalformattedDataObject }
+    end
+
     context "with overridden attributes" do
       before { options[:attributes_map] = { user: { callsign: :name } } }
 

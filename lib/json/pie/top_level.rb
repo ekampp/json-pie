@@ -23,6 +23,8 @@ module JSON
                         when Array then parse_as_array
                         else parse_as_object
                         end
+      rescue StandardError => error
+        raise JSON::Pie::MalformattedDataObject, "malformmated data structure"
       end
 
       private
