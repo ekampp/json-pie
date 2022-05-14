@@ -22,7 +22,7 @@ RSpec.describe JSON::Pie::TopLevel do
       end
     end
 
-    context 'with non-json data object' do
+    context "with non-json data object" do
       let(:params) do
         {
           data: "hello"

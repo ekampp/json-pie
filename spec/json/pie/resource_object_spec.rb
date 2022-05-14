@@ -63,7 +63,7 @@ RSpec.describe JSON::Pie::ResourceObject do
     end
   end
 
-  context 'with null relationship' do
+  context "with null relationship" do
     let(:article) { Article.create! name: "Black hole sun", user: user }
 
     let(:data_object) do
@@ -71,12 +71,12 @@ RSpec.describe JSON::Pie::ResourceObject do
         type: :article,
         id: article.id,
         relationships: {
-          user: nil,
+          user: nil
         }
       }
     end
 
-    it 'handles the null relationship' do
+    it "handles the null relationship" do
       expect(instance.user).to be_nil
     end
   end
